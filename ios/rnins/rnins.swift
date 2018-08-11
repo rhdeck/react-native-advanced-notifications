@@ -15,22 +15,23 @@ class rnins: NSObject {
         }
         let _ = RNSMainRegistry.addEvent(type: "app.didRegisterUserNotificationSettings", key: "RNINS") {data in
             guard let ns = data as? UIUserNotificationSettings else { return false}
-            RCTPushNotificationManager.didRegister(notificationSettings: ns)
+            RCTPushNotificationManager.didRegister(ns)
             return true
         }
         let _ = RNSMainRegistry.addEvent(type: "app.didReceiveRemoteNotification", key: "RNINS") { data in
             guard let n = data as? [String: Any?] else { return false }
-            RCTPushNotificationManager.didReceiveRemoteNotification(notification: n)
+            RCTPushNotificationManager.didReceiveRemoteNotification(n)
             return true
         }
         let _ = RNSMainRegistry.addEvent(type: "app.didFailToRegisterForRemoteNotifications", key: "RNINS") { data in
             guard let e = data as? Error else { return false }
-            RCTPushNotificationManager.didFailToRegisterForRemoteNotificationsWithError(error: e)
+            RCTPushNotificationManager.didFailToRegisterForRemoteNotificationsWithError(e)
             return true
         }
         let _ = RNSMainRegistry.addEvent(type: "app.didReceiveLocalNotification", key: "RNINS") { data in
             guard let n = data as? UILocalNotification else { return false }
-            RCTPushNotificationManager.didReceive(notification: n)
+            RCTPushNotificationManager.didReceive(n)
+            return true
         }
     }
     @objc func noop() {
