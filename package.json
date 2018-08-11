@@ -1,0 +1,25 @@
+{
+  "name": "react-native-ios-notifications-swift",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "react-native-swift": "^1.0.0",
+    "react-native-swift-registry": "rhdeck/react-native-swift-registry"
+  },
+  "scripts": {
+    "bridge": "react-native-swift-bridge",
+    "watch": "react-native-swift-bridge --watch",
+    "addpod": "react-native-pod addpod",
+    "removepod": "react-native-pod removepod"
+  },
+  "main": "index.js",
+  "isSwift": true,
+  "devDependencies": {
+    "react-native-pod": "^1.10.2",
+    "react-native-swift-bridge": "^2.3.0"
+  },
+  "rnpm": {
+    "commands": {
+      "prelink": "node node_modules/react-native-ios-notifications-swift/prelink.js"
+    }
+  }
+}
