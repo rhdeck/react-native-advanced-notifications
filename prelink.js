@@ -2,7 +2,7 @@
 const Path = require("path");
 const linkXcodeProject = require("./linkXcodeProject");
 const thisPath = Path.join(
-  pwd,
+  process.cwd(),
   "node_modules",
   "react-native",
   "Libraries",
