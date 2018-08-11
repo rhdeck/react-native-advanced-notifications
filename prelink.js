@@ -43,9 +43,10 @@ if (libGroupObj) {
 }
 
 //Add File reference
-const file = new Path.relative(Path.join(pwd, "ios"), thisPath);
+const file = new PBXFile(Path.relative(Path.join(pwd, "ios"), thisPath));
 file.uuid = p.generateUuid();
 file.fileRef = p.generateUuid();
+console.log("I am adding a file", file);
 p.addToPbxFileReferenceSection(file);
 
 //Add to libraries group
@@ -54,13 +55,18 @@ libGroup.children.push({ value: file.fileRef, comment: file.basename });
 const pts = getTargets(p);
 // Add SL to my targets
 getTargets(d).forEach((dt, i) => {
+  console.log("Working with dependency target", dt.name);
   pts.forEach(t => {
-    if (dt.isTVOS == t.isTVOS) p.addStaticLibrary(dt.name, { target: t.uuid });
+    console.log("working with parent target ", t.name);
+    if (dt.isTVOS == t.isTVOS) {
+      console.log("These match, let's add the target", dt.name, t.uuid);
+      p.addStaticLibrary(dt.name, { target: t.uuid });
+    }
   });
 });
-
-process.exit();
-
 const out = p.writeSync();
+fs.writeFileSync(Path.join(pwd, "test.pbxproj"));
+//process.exit();
+
 fs.writeFileSync(projPath, out);
 console.log("Done writing the filePath");
