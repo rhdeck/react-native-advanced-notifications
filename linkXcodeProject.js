@@ -47,3 +47,4 @@ function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   const out = p.writeSync();
   fs.writeFileSync(projPath, out);
 }
+module.exports = linkXcodeProject;
