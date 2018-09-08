@@ -19,6 +19,12 @@ function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
     console.log("Could not find push notification project: ", thisPath);
     process.exit();
   }
+  const relativePath = Path.relative(Path.join(pwd, "ios"), thisPath);
+  const inText = fs.readFileSync(projPath, { encoding: "UTF8" });
+  if (inText.indexOf(relativePath) > -1) {
+    console.log("Already added");
+    return;
+  }
   var p = PBXProject.project(projPath).parseSync();
   var d = PBXProject.project(thisProjectPath).parseSync();
   const pfp = p.getFirstProject().firstProject;
@@ -29,7 +35,7 @@ function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
     libGroup = p.getPBXGroupByKey(libGroupObj.value);
   }
   //Add File reference
-  const file = new PBXFile(Path.relative(Path.join(pwd, "ios"), thisPath));
+  const file = new PBXFile(relativePath);
   file.uuid = p.generateUuid();
   file.fileRef = p.generateUuid();
   p.addToPbxFileReferenceSection(file);
