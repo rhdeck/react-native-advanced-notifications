@@ -7,8 +7,8 @@ const getTargets = require("react-native/local-cli/link/ios/getTargets");
 function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   const pwd = myMainPath ? myMainPath : process.cwd();
   const thisPath = SLXCodeProjectPath;
-  const g = Path.join(pwd, "ios", "**", "*.xcodeproj", "project.pbxproj");
-  const gs = glob.sync(g);
+  const g = Path.join(pwd, "ios", "*", "*.xcodeproj", "project.pbxproj");
+  const gs = glob.sync(g).filter(p => !p.includes("Pods.xc"));
   if (!gs || !gs.length) {
     console.log("I cannot find the Xcode project file");
     process.exit();
