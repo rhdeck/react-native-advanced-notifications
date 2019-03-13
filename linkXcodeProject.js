@@ -1,8 +1,8 @@
 const Path = require("path");
 const fs = require("fs");
 const glob = require("glob");
-const PBXProject = require("@rhdeck/xcode");
-const PBXFile = require("@rhdeck/xcode/lib/PBXFile");
+const PBXProject = require("@raydeck/xcode");
+const PBXFile = require("@raydeck/xcode/lib/PBXFile");
 const getTargets = require("react-native/local-cli/link/ios/getTargets");
 function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   const pwd = myMainPath ? myMainPath : process.cwd();
