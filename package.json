@@ -1,6 +1,6 @@
 {
   "name": "react-native-ios-notifications-swift",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "peerDependencies": {
     "react-native-swift": "^1.0.0",
     "react-native-swift-registry": "*"
