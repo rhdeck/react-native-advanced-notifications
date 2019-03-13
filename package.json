@@ -14,6 +14,7 @@
   "main": "index.js",
   "isSwift": true,
   "devDependencies": {
+    "@raydeck/xcode": "^2.2.1",
     "react-native-pod": "^1.10.2",
     "react-native-swift-bridge": "^2.3.0"
   },

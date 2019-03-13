@@ -1,8 +1,8 @@
 const Path = require("path");
 const fs = require("fs");
 const glob = require("glob");
-const PBXProject = require("xcode");
-const PBXFile = require("xcode/lib/PBXFile");
+const PBXProject = require("@rhdeck/xcode");
+const PBXFile = require("@rhdeck/xcode/lib/PBXFile");
 const getTargets = require("react-native/local-cli/link/ios/getTargets");
 function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   const pwd = myMainPath ? myMainPath : process.cwd();
@@ -30,7 +30,7 @@ function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   const pfp = p.getFirstProject().firstProject;
   var group = p.getPBXGroupByKey(pfp.mainGroup);
   const libGroupObj = group.children.find(g => g.comment === "Libraries");
-  var libGroup;
+  var libGroup = { children: [] };
   if (libGroupObj) {
     libGroup = p.getPBXGroupByKey(libGroupObj.value);
   }
@@ -40,6 +40,7 @@ function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   file.fileRef = p.generateUuid();
   p.addToPbxFileReferenceSection(file);
   //Add to libraries group
+
   libGroup.children.push({ value: file.fileRef, comment: file.basename });
   const pts = getTargets(p);
   // Add SL to my targets
