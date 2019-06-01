@@ -3,14 +3,15 @@ const fs = require("fs");
 const glob = require("glob");
 const PBXProject = require("@raydeck/xcode");
 const PBXFile = require("@raydeck/xcode/lib/PBXFile");
-const getTargets = require("react-native/local-cli/link/ios/getTargets");
+const getTargets = require("@react-native-community/cli/build/commands/link/ios/getTargets")
+  .default;
 function linkXcodeProject(SLXCodeProjectPath, myMainPath) {
   const pwd = myMainPath ? myMainPath : process.cwd();
   const thisPath = SLXCodeProjectPath;
-  const g = Path.join(pwd, "ios", "*", "*.xcodeproj", "project.pbxproj");
-  const gs = glob.sync(g).filter(p => !p.includes("Pods.xc"));
+  const g = Path.join(pwd, "ios", "*.xcodeproj", "project.pbxproj");
+  const rawgs = glob.sync(g);
+  const gs = rawgs.filter(p => !p.includes("Pods.xc"));
   if (!gs || !gs.length) {
-    console.log("I cannot find the Xcode project file");
     process.exit();
   }
   const projPath = gs.shift();
