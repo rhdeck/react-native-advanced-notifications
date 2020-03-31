@@ -1,9 +1,8 @@
 {
-  "name": "react-native-ios-notifications-swift",
+  "name": "@react-native-swift/notifications",
   "version": "1.0.2",
   "peerDependencies": {
-    "react-native-swift": "^1.0.0",
-    "react-native-swift-registry": "*"
+    "@react-native-community/push-notification-ios": "^1.1.0"
   },
   "scripts": {
     "bridge": "react-native-swift-bridge",
@@ -15,12 +14,14 @@
   "isSwift": true,
   "devDependencies": {
     "@raydeck/xcode": "^2.2.1",
-    "react-native-pod": "^1.10.2",
     "react-native-swift-bridge": "^2.3.0"
   },
-  "rnpm": {
-    "commands": {
-      "prelink": "node node_modules/react-native-ios-notifications-swift/prelink.js"
-    }
+  "dependencies": {
+    "@raydeck/xcode": "^2.2.0",
+    "glob": "^7.1.2",
+    "hex-rgb": "^2.0.0",
+    "inquirer": "^4.0.2",
+    "plist": "^2.1.0",
+    "rgb-hex": "^2.1.0"
   }
 }
