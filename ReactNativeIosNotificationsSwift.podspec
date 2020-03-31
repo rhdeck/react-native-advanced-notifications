@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.authors      = "Ray Deck"
   s.homepage     = package['homepage']
   s.license      = package['license']
-  s.platform     = :ios, "9.0
+  s.platform     = :ios, "9.0"
   s.module_name  = 'ReactNativeIosNotificationsSwift'
   s.source       = { :git => "https://github.com/rhdeck/react-native-ios-notifications-swift.git", :tag => "#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,swift}"
