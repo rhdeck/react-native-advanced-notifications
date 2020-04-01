@@ -12,6 +12,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/rhdeck/react-native-ios-notifications-swift.git", :tag => "#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,swift}"
   s.dependency 'React'
-  s.dependency 'RNCPushNotificationIOS'
   s.dependency 'ReactNativeSwiftRegistry'
 end

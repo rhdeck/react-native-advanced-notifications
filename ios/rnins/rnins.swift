@@ -1,5 +1,5 @@
 import Foundation
-
+import ReactNativeSwiftRegistry
 
 //Note that for objective-c (and therefore RN) to see the class you need to give the @objc hint
 //Also, any method exposed to objective-c runtime will also require the hint.
@@ -36,7 +36,7 @@ class rnins: NSObject {
     @objc func noop() {
         //No-op function
     }
-    class func requiresMainQueueSetup() -> Bool {
+    @objc static func requiresMainQueueSetup() -> Bool {
         return true;
     }
 }
