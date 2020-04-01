@@ -1,5 +1,12 @@
 {
   "name": "@react-native-swift/notifications",
+  "description": "Notification hooks for push-notifications-ios via react-native-swift",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhdeck/react-native-swift-notifications"
+  },
+  "homepage": "https://github.com/rhdeck/react-native-swift-notifications#README",
   "version": "1.0.2",
   "peerDependencies": {
     "@react-native-community/push-notification-ios": "^1.1.0"
