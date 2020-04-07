@@ -1,5 +1,5 @@
 {
-  "name": "@react-native-swift/notifications",
+  "name": "@react-native-advanced/notifications",
   "description": "Notification hooks for push-notifications-ios via react-native-swift",
   "license": "MIT",
   "repository": {
