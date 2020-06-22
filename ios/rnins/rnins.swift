@@ -55,6 +55,15 @@ class rnins: NSObject {
             RNCPushNotificationIOS.didReceive(n)
             return true
         }
+        let _ = RNSMainRegistry.addEvent(type: "app.didReceiveResponse", key: "RNINS") { data in
+            guard let n = data as? [String: Any?] else { return false}
+            if #available(iOS 10.0, *) {
+                RNCPushNotificationIOS.didReceive(n["response"] as? UNNotificationResponse)
+            } else {
+                // Fallback on earlier versions
+            }
+            return true
+        }
     }
     @objc func noop() {
         //No-op function
