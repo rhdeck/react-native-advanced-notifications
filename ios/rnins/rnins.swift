@@ -6,8 +6,44 @@ import ReactNativeAdvancedRegistry
 class RNNotificationDelegate: NSObject, UNUserNotificationCenterDelegate, RNSStartable {
     static var instance = RNNotificationDelegate();
     
-    static func runOnStart(_ application: UIApplication) {
+    @objc public static func runOnStart(_ application: UIApplication) {
         UNUserNotificationCenter.current().delegate = RNNotificationDelegate.instance
+        let _ = RNSMainRegistry.addEvent(type: "app.didBecomeActive", key: "RNINS.core") { _ in
+            let _ = RNSMainRegistry.setData(key: "app.didBecomeActive", value: "true")
+            return true
+        }
+        let _ = RNSMainRegistry.addEvent(type: "app.didReceiveResponse", key:"RNINS.core") { data in
+            guard let n = data as? [String: Any?] else { return false}
+            if let r = n["response"] as? UNNotificationResponse {
+               let actionIdentifier = r.actionIdentifier
+               let notification = r.notification
+                let request = notification.request
+                let date = notification.date.timeIntervalSince1970
+                let content = request.content
+                let title=content.title
+                let subtitle = content.subtitle
+                let userInfo = content.userInfo
+                let value = [
+                   "actionIdentifier": actionIdentifier,
+                   "notification":[
+                       "date": date,
+                       "content": [
+                           "title": title,
+                           "subtitle": subtitle,
+                           "userInfo": userInfo
+                       ]
+                   ]
+                ] as [String : Any]
+                if let _ = RNSMainRegistry.getData(key: "app.didBecomeActive") {
+                    let _ = RNSMainRegistry.triggerEvent(type:"notificationAction", data:value)
+                } else {
+                    let _ = RNSMainRegistry.setData(key:"startingNotificationAction", value:value
+                    )
+//
+                }
+            }
+            return true
+        }
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
         let _ = RNSMainRegistry.triggerEvent(type: "app.didOpenSettingsForNotification", data: notification as Any)
@@ -21,7 +57,6 @@ class RNNotificationDelegate: NSObject, UNUserNotificationCenterDelegate, RNSSta
         if(  !RNSMainRegistry.triggerEvent(type: "app.willPresentNotification", data: ["notification": notification, "completionHandler": completionHandler])) {
             completionHandler(.alert)
         }
-        
     }
 }
 //Note that for objective-c (and therefore RN) to see the class you need to give the @objc hint
@@ -59,6 +94,7 @@ class rnins: NSObject {
             guard let n = data as? [String: Any?] else { return false}
             if #available(iOS 10.0, *) {
                 RNCPushNotificationIOS.didReceive(n["response"] as? UNNotificationResponse)
+                //Let's save it to local just in case
             } else {
                 // Fallback on earlier versions
             }
