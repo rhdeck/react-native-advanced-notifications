@@ -35,11 +35,10 @@ class RNNotificationDelegate: NSObject, UNUserNotificationCenterDelegate, RNSSta
                    ]
                 ] as [String : Any]
                 if let _ = RNSMainRegistry.getData(key: "app.didBecomeActive") {
-                    let _ = RNSMainRegistry.triggerEvent(type:"notificationAction", data:value)
+                    let _ = RNSMainRegistry.triggerEventNoSync(type:"notificationAction", data:value)
                 } else {
                     let _ = RNSMainRegistry.setData(key:"startingNotificationAction", value:value
                     )
-//
                 }
             }
             return true
