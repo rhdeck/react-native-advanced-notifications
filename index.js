@@ -32,16 +32,16 @@ addEvent("notificationAction", "counselor", (data) => {
   console.log("Got callback from notificationAction", data);
 });
 
-const useNotificationAction = () => {
-  const [notificationAction, setNotificationAction] = useState(
-    notificationAction
-  );
-  useAsyncEffect(async () => {
-    const n = await getInitialNotificationAction();
-    if (n) {
-      setNotificationAction(n);
-    }
-  }, []);
+const useNotificationAction = (useInitialValue = true) => {
+  const [notificationAction, setNotificationAction] = useState();
+  if (useInitialValue) {
+    useAsyncEffect(async () => {
+      const n = await getInitialNotificationAction();
+      if (n) {
+        setNotificationAction(n);
+      }
+    }, []);
+  }
   useEffect(() => {
     notificationActionListeners.push(setNotificationAction);
     return () => {
