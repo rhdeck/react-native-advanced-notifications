@@ -29,7 +29,6 @@ const getInitialNotificationAction = async () => {
 let notificationActionListeners = [];
 addEvent("notificationAction", "counselor", (data) => {
   notificationActionListeners.map((listener) => listener(data));
-  console.log("Got callback from notificationAction", data);
 });
 
 const useNotificationAction = (useInitialValue = true) => {
